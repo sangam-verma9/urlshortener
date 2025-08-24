@@ -3,6 +3,33 @@ import { useParams, Link } from 'react-router-dom'
 import { ExternalLink, Clock, AlertCircle, ArrowDown, Home } from 'lucide-react'
 import { API_ENDPOINTS, apiRequest } from '../config/api'
 
+// Ad Component for reusability
+const GoogleAd = ({ slot, format = "auto", responsive = true, style = {} }) => {
+    useEffect(() => {
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+            console.error('AdSense error:', e);
+        }
+    }, []);
+
+    return (
+        <div className="ad-container" style={{ textAlign: 'center', margin: '20px 0', ...style }}>
+            <ins
+                className="adsbygoogle"
+                style={{
+                    display: 'block',
+                    ...(responsive && { width: '100%' }),
+                }}
+                data-ad-client="ca-pub-8639067847402396"
+                data-ad-slot={slot}
+                data-ad-format={format}
+                data-full-width-responsive="true"
+            ></ins>
+        </div>
+    );
+};
+
 const Redirect = () => {
     const { key } = useParams()
     const [countdown, setCountdown] = useState(5)
@@ -63,6 +90,15 @@ const Redirect = () => {
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
                     <h2 className="text-xl font-semibold text-gray-800 mb-2">Loading...</h2>
                     <p className="text-gray-600">Preparing your redirect</p>
+
+                    {/* Ad Position 1: Loading State Ad */}
+                    <div className="mt-6">
+                        <GoogleAd
+                            slot="6849731724"
+                            format="rectangle"
+                            style={{ minHeight: '200px' }}
+                        />
+                    </div>
                 </div>
             </div>
         )
@@ -77,6 +113,16 @@ const Redirect = () => {
                     </div>
                     <h2 className="text-2xl font-semibold text-gray-800 mb-2">Oops!</h2>
                     <p className="text-gray-600 mb-6">{error}</p>
+
+                    {/* Ad Position 2: Error State Ad */}
+                    <div className="mb-6">
+                        <GoogleAd
+                            slot="6849731724"
+                            format="rectangle"
+                            style={{ minHeight: '200px' }}
+                        />
+                    </div>
+
                     <Link to="/" className="btn-primary inline-flex items-center space-x-2">
                         <Home className="w-4 h-4" />
                         <span>Go Back Home</span>
@@ -112,9 +158,18 @@ const Redirect = () => {
                                     </span>
                                 </div>
 
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm text-gray-500 mb-6">
                                     Please wait while we prepare your destination...
                                 </p>
+
+                                {/* Ad Position 3: During Countdown - Perfect for user engagement */}
+                                <div className="mt-6">
+                                    <GoogleAd
+                                        slot="6849731724"
+                                        format="rectangle"
+                                        style={{ minHeight: '250px' }}
+                                    />
+                                </div>
                             </>
                         ) : (
                             <>
@@ -131,6 +186,15 @@ const Redirect = () => {
                                         <span>Scroll Down to Get Link</span>
                                     </button>
                                 </div>
+
+                                {/* Ad Position 4: Timer Complete - Horizontal Ad */}
+                                <div className="mt-6">
+                                    <GoogleAd
+                                        slot="2719733262"
+                                        format="auto"
+                                        style={{ minHeight: '100px' }}
+                                    />
+                                </div>
                             </>
                         )}
                     </div>
@@ -141,6 +205,15 @@ const Redirect = () => {
             {timerComplete && (
                 <div id="url-section" className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
                     <div className="w-full max-w-2xl">
+                        {/* Ad Position 5: Top of URL Section */}
+                        <div className="mb-6">
+                            <GoogleAd
+                                slot="2719733262"
+                                format="auto"
+                                style={{ minHeight: '100px' }}
+                            />
+                        </div>
+
                         <div className="card">
                             <div className="text-center mb-8">
                                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -154,9 +227,17 @@ const Redirect = () => {
                                 </p>
                             </div>
 
+                            {/* Ad Position 6: Before the redirect button */}
+                            <div className="mb-6">
+                                <GoogleAd
+                                    slot="6849731724"
+                                    format="rectangle"
+                                    style={{ minHeight: '250px' }}
+                                />
+                            </div>
+
                             <div className="space-y-6">
                                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6">
-
                                     <button
                                         onClick={handleRedirect}
                                         className="btn-primary w-full flex items-center justify-center space-x-2 text-lg"
@@ -166,10 +247,47 @@ const Redirect = () => {
                                     </button>
                                 </div>
                             </div>
+
+                            {/* Ad Position 7: After the redirect button */}
+                            <div className="mt-6">
+                                <GoogleAd
+                                    slot="2719733262"
+                                    format="auto"
+                                    style={{ minHeight: '100px' }}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Ad Position 8: Bottom of URL Section */}
+                        <div className="mt-6">
+                            <GoogleAd
+                                slot="6849731724"
+                                format="rectangle"
+                                style={{ minHeight: '200px' }}
+                            />
                         </div>
                     </div>
                 </div>
             )}
+
+            {/* Ad Position 9: Fixed Sidebar for Desktop */}
+            <div className="hidden xl:block fixed left-4 top-1/2 transform -translate-y-1/2 w-64">
+                <GoogleAd
+                    slot="6849731724"
+                    format="rectangle"
+                    responsive={false}
+                    style={{ minHeight: '250px', width: '250px' }}
+                />
+            </div>
+
+            {/* Ad Position 10: Fixed Bottom Banner for Mobile */}
+            <div className="block md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white shadow-lg">
+                <GoogleAd
+                    slot="2719733262"
+                    format="auto"
+                    style={{ minHeight: '50px', margin: '10px' }}
+                />
+            </div>
         </div>
     )
 }
