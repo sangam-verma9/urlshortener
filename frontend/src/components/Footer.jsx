@@ -6,12 +6,9 @@ const Footer = () => {
 
     const footerLinks = [
         { name: 'ShortURL', href: '/' },
-        { name: 'URL Click Counter', href: '#' },
-        { name: 'Unshorten URL', href: '#' },
-        { name: 'Report Malicious URL', href: '#' },
-        { name: 'Terms of Service', href: '#' },
-        { name: 'Privacy', href: '#' },
-        { name: 'Contact', href: '#' }
+        { name: 'Terms of Service', href: '/terms' },
+        { name: 'Privacy', href: '/privacy' },
+        { name: 'Contact', href: '/contact' }
     ]
 
     return (
@@ -20,16 +17,7 @@ const Footer = () => {
                 {/* Copyright and Powered by */}
                 <div className="text-center mb-4">
                     <p className="text-sm text-gray-300">
-                        © {currentYear} ShortUrl.at - Tool to shorten a long link
-                    </p>
-                    <p className="text-sm text-gray-400 mt-1">
-                        Powered by{' '}
-                        <a
-                            href="#"
-                            className="text-blue-400 hover:text-blue-300 transition-colors"
-                        >
-                            NameSilo
-                        </a>
+                        © {currentYear} websitename.at - Generate compact links from lengthy URLs
                     </p>
                 </div>
 

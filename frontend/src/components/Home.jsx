@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Copy, Link, CheckCircle, AlertCircle, ExternalLink } from 'lucide-react'
-
+import { API_ENDPOINTS, apiRequest } from '../config/api'
 const Home = () => {
     const [longUrl, setLongUrl] = useState('')
     const [shortUrl, setShortUrl] = useState('')
@@ -37,17 +37,12 @@ const Home = () => {
         setError('')
 
         try {
-            const response = await fetch('https://urlshortener-tnlf.onrender.com/api/v1/create', {
+            const data = await apiRequest(API_ENDPOINTS.CREATE_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 body: JSON.stringify({
                     value: longUrl
                 })
             })
-
-            const data = await response.json()
 
             if (data.success) {
                 setShortUrl(`${domain}/redirect/${data.url.key}`)
@@ -81,7 +76,7 @@ const Home = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-4 py-8">
+        <div className="min-h-[90vh] flex items-center justify-center px-4 py-8">
             <div className="w-full max-w-2xl">
                 {/* Header */}
                 <div className="text-center mb-8">
@@ -89,9 +84,9 @@ const Home = () => {
                         <Link className="w-12 h-12 text-blue-600" />
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold text-blue-600 mb-4">
-                        Short URL
+                        Make Short URL
                     </h1>
-                    <p className="text-gray-600 text-lg">
+                    <p className="text-gray-600 text-lg italic">
                         Transform long URLs into short, shareable links instantly
                     </p>
                 </div>
@@ -100,7 +95,7 @@ const Home = () => {
                 <div className="card">
                     {!shortUrl ? (
                         <>
-                            <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
+                            <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center font-serif">
                                 Paste the URL to be shortened
                             </h2>
 
@@ -111,7 +106,7 @@ const Home = () => {
                                         value={longUrl}
                                         onChange={(e) => setLongUrl(e.target.value)}
                                         placeholder="Enter the link here"
-                                        className="input-field text-lg"
+                                        className="input-field text-lg font-thin"
                                         disabled={loading}
                                     />
                                 </div>
@@ -126,7 +121,7 @@ const Home = () => {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="btn-primary w-full text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                    className="btn-primary font-extrabold w-full cursor-pointer text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                                 >
                                     {loading ? (
                                         <span className="flex items-center justify-center">
@@ -139,9 +134,9 @@ const Home = () => {
                                 </button>
                             </form>
 
-                            <div className="mt-8 text-center text-sm text-gray-500">
-                                <p>ShortURL is a free tool to shorten URLs and generate short links</p>
-                                <p>URL shortener allows to create a shortened link making it easy to share</p>
+                            <div className="mt-8 text-center text-sm text-gray-500 font-stretch-50%">
+                                <p>ShortURL provides a fast way to shorten lengthy URLs, simplifying sharing across platforms.</p>
+                                <p>Easily create shareable short links using ShortURL’s free link shortening tool.</p>
                             </div>
                         </>
                     ) : (
@@ -196,9 +191,6 @@ const Home = () => {
                                 </div>
 
                                 <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                                    <button className="btn-secondary flex-1">
-                                        Total of clicks of your short URL
-                                    </button>
                                     <button
                                         onClick={handleReset}
                                         className="btn-primary flex-1"

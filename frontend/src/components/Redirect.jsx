@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ExternalLink, Clock, AlertCircle, ArrowDown, Home } from 'lucide-react'
+import { API_ENDPOINTS, apiRequest } from '../config/api'
 
 const Redirect = () => {
     const { key } = useParams()
@@ -11,11 +12,9 @@ const Redirect = () => {
     const [timerComplete, setTimerComplete] = useState(false)
 
     useEffect(() => {
-        // Fetch the long URL from backend
         const fetchLongUrl = async () => {
             try {
-                const response = await fetch(`https://urlshortener-tnlf.onrender.com/api/v1/find/${key}`)
-                const data = await response.json()
+                const data = await apiRequest(API_ENDPOINTS.FIND_URL(key))
 
                 if (data.success) {
                     setLongUrl(data.longUrl)
@@ -33,7 +32,6 @@ const Redirect = () => {
     }, [key])
 
     useEffect(() => {
-        // Start countdown timer
         if (!loading && !error && countdown > 0) {
             const timer = setTimeout(() => {
                 setCountdown(countdown - 1)
@@ -108,7 +106,7 @@ const Redirect = () => {
                                     You will be redirected in
                                 </p>
 
-                                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
+                                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-blue-500 to-blue-600  flex items-center justify-center mx-auto mb-8 shadow-lg">
                                     <span className="text-3xl font-bold text-white">
                                         {countdown}
                                     </span>
@@ -135,16 +133,6 @@ const Redirect = () => {
                                 </div>
                             </>
                         )}
-                    </div>
-
-                    <div className="text-center mt-6">
-                        <Link
-                            to="/"
-                            className="text-blue-600 hover:text-blue-800 text-sm flex items-center justify-center space-x-1"
-                        >
-                            <Home className="w-4 h-4" />
-                            <span>Return to Homepage</span>
-                        </Link>
                     </div>
                 </div>
             </div>
@@ -176,19 +164,6 @@ const Redirect = () => {
                                         <ExternalLink className="w-5 h-5" />
                                         <span>Visit Website</span>
                                     </button>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className="text-sm text-gray-500 mb-4">
-                                        Want to create your own short URLs?
-                                    </p>
-                                    <Link
-                                        to="/"
-                                        className="btn-secondary inline-flex items-center space-x-2"
-                                    >
-                                        <Home className="w-4 h-4" />
-                                        <span>Try Our URL Shortener</span>
-                                    </Link>
                                 </div>
                             </div>
                         </div>
