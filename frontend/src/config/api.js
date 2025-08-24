@@ -4,6 +4,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 export const API_ENDPOINTS = {
     CREATE_URL: `${API_BASE_URL}/create`,
     FIND_URL: (key) => `${API_BASE_URL}/find/${key}`,
+    SUBMIT_CONTACT: `${API_BASE_URL}/submitdetails`,
 }
 
 // API utility functions

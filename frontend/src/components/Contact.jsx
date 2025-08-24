@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Home, Mail, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { API_ENDPOINTS, apiRequest } from '../config/api'
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const Contact = () => {
         message: ''
     })
     const [submitted, setSubmitted] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
 
     const handleChange = (e) => {
@@ -19,7 +21,7 @@ const Contact = () => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         // Basic validation
@@ -35,15 +37,36 @@ const Contact = () => {
             return
         }
 
-        // Simulate form submission
+        setLoading(true)
         setError('')
-        setSubmitted(true)
 
-        // Reset form after 3 seconds
-        setTimeout(() => {
-            setSubmitted(false)
-            setFormData({ name: '', email: '', subject: '', message: '' })
-        }, 3000)
+        try {
+            const response = await apiRequest(API_ENDPOINTS.SUBMIT_CONTACT, {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    subject: formData.subject || 'Contact Form Submission',
+                    message: formData.message
+                })
+            })
+
+            if (response.success) {
+                setSubmitted(true)
+                // Reset form after successful submission
+                setTimeout(() => {
+                    setSubmitted(false)
+                    setFormData({ name: '', email: '', subject: '', message: '' })
+                }, 3000)
+            } else {
+                setError(response.message || 'Failed to send message. Please try again.')
+            }
+        } catch (err) {
+            console.error('Contact form submission error:', err)
+            setError('Unable to send message. Please check your connection and try again.')
+        } finally {
+            setLoading(false)
+        }
     }
 
     if (submitted) {
@@ -105,6 +128,7 @@ const Contact = () => {
                                     onChange={handleChange}
                                     className="input-field"
                                     placeholder="Your full name"
+                                    disabled={loading}
                                     required
                                 />
                             </div>
@@ -120,6 +144,7 @@ const Contact = () => {
                                     onChange={handleChange}
                                     className="input-field"
                                     placeholder="your@email.com"
+                                    disabled={loading}
                                     required
                                 />
                             </div>
@@ -137,6 +162,7 @@ const Contact = () => {
                                 onChange={handleChange}
                                 className="input-field"
                                 placeholder="What is this about?"
+                                disabled={loading}
                             />
                         </div>
 
@@ -152,6 +178,7 @@ const Contact = () => {
                                 rows="5"
                                 className="input-field resize-vertical"
                                 placeholder="Tell us more details..."
+                                disabled={loading}
                                 required
                             ></textarea>
                         </div>
@@ -165,10 +192,20 @@ const Contact = () => {
 
                         <button
                             type="submit"
-                            className="btn-primary w-full flex items-center justify-center space-x-2"
+                            disabled={loading}
+                            className="btn-primary w-full flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         >
-                            <Send className="w-4 h-4" />
-                            <span>Send Message</span>
+                            {loading ? (
+                                <>
+                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                                    <span>Sending...</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Send className="w-4 h-4" />
+                                    <span>Send Message</span>
+                                </>
+                            )}
                         </button>
                     </form>
                 </div>
