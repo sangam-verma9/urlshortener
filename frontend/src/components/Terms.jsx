@@ -3,11 +3,6 @@ import { Link } from 'react-router-dom'
 import {  FileText } from 'lucide-react'
 
 const Terms = () => {
-    const currentDate = new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    })
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white py-8">

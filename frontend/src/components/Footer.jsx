@@ -5,7 +5,7 @@ const Footer = () => {
     const currentYear = new Date().getFullYear()
 
     const footerLinks = [
-        { name: 'ShortURL', href: '/' },
+        { name: 'tsnap', href: '/' },
         { name: 'Terms of Service', href: '/terms' },
         { name: 'Privacy', href: '/privacy' },
         { name: 'Contact', href: '/contact' }
@@ -17,7 +17,7 @@ const Footer = () => {
                 {/* Copyright and Powered by */}
                 <div className="text-center mb-4">
                     <p className="text-sm text-gray-300">
-                        © {currentYear} websitename.at - Generate compact links from lengthy URLs
+                        © {currentYear} tsnap.in - Generate compact links from lengthy URLs
                     </p>
                 </div>
 
