@@ -14,7 +14,7 @@ exports.createnewshorturl = catchasyncerror(async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Key already exists",
-            exists
+            url:exists
         });
     }
     const url = await Url.create({
