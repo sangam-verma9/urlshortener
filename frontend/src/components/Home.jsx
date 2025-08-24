@@ -45,7 +45,7 @@ const Home = () => {
             })
 
             if (data.success) {
-                setShortUrl(`${domain}/redirect/${data.url.key}`)
+                setShortUrl(`${domain}/r/${data.url.key}`)
                 setOriginalUrl(data.url.value)
                 setLongUrl('')
             } else {
