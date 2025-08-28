@@ -31,7 +31,7 @@ const Privacy = () => {
                         <section>
                             <h2 className="text-2xl font-semibold text-gray-800 mb-4">1. Information We Collect</h2>
                             <p className="text-gray-600 leading-relaxed mb-4">
-                                When you use Short URL, we may collect the following information:
+                                When you use Tsnap, we may collect the following information:
                             </p>
                             <ul className="list-disc list-inside text-gray-600 space-y-2">
                                 <li>URLs that you submit for shortening</li>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {  FileText } from 'lucide-react'
+import { FileText } from 'lucide-react'
 
 const Terms = () => {
 
@@ -23,14 +23,14 @@ const Terms = () => {
                         <section>
                             <h2 className="text-2xl font-semibold text-gray-800 mb-4">1. Acceptance of Terms</h2>
                             <p className="text-gray-600 leading-relaxed">
-                                By accessing and using Short URL ("Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+                                By accessing and using Tsnap ("Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
                             </p>
                         </section>
 
                         <section>
                             <h2 className="text-2xl font-semibold text-gray-800 mb-4">2. Description of Service</h2>
                             <p className="text-gray-600 leading-relaxed">
-                                Short URL provides a free URL shortening service that allows users to create shortened links from long URLs. The service is provided "as is" and we reserve the right to modify or discontinue the service at any time.
+                                Tsnap provides a free URL shortening service that allows users to create shortened links from long URLs. The service is provided "as is" and we reserve the right to modify or discontinue the service at any time.
                             </p>
                         </section>
 
@@ -63,7 +63,7 @@ const Terms = () => {
                         <section>
                             <h2 className="text-2xl font-semibold text-gray-800 mb-4">6. Limitation of Liability</h2>
                             <p className="text-gray-600 leading-relaxed">
-                                Short URL shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use the service.
+                                Tsnap shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use the service.
                             </p>
                         </section>
 

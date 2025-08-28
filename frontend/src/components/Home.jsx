@@ -37,7 +37,7 @@ const Home = () => {
     const [error, setError] = useState('')
     const [copied, setCopied] = useState(false)
 
-    const domain = window.location.origin
+    const domain = "https://tsnap.in" || window.location.origin
 
     const isValidUrl = (string) => {
         try {
@@ -181,8 +181,8 @@ const Home = () => {
                             </div>
 
                             <div className="mt-8 text-center text-sm text-gray-500 font-stretch-50%">
-                                <p>ShortURL provides a fast way to shorten lengthy URLs, simplifying sharing across platforms.</p>
-                                <p>Easily create shareable short links using ShortURL's free link shortening tool.</p>
+                                <p>Tsnap provides a fast way to shorten lengthy URLs, simplifying sharing across platforms.</p>
+                                <p>Easily create shareable short links using Tsnap's free link shortening tool.</p>
                             </div>
                         </>
                     ) : (

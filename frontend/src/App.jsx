@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import Terms from './components/Terms'
 import Privacy from './components/Privacy'
 import Contact from './components/Contact'
+import About from './components/About'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </main>
         <Footer />

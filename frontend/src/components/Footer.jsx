@@ -7,6 +7,7 @@ const Footer = () => {
     const footerLinks = [
         { name: 'tsnap', href: '/' },
         { name: 'Terms of Service', href: '/terms' },
+        { name: 'About', href: '/about' },
         { name: 'Privacy', href: '/privacy' },
         { name: 'Contact', href: '/contact' }
     ]

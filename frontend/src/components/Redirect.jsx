@@ -72,7 +72,7 @@ const Redirect = () => {
 
     const handleRedirect = () => {
         if (longUrl) {
-            window.location.href = longUrl
+            window.open(longUrl, '_blank', 'noopener,noreferrer') 
         }
     }
 
