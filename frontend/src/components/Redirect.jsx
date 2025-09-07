@@ -32,7 +32,7 @@ const GoogleAd = ({ slot, format = "auto", responsive = true, style = {} }) => {
 
 const Redirect = () => {
     const { key } = useParams()
-    const [countdown, setCountdown] = useState(5)
+    const [countdown, setCountdown] = useState(0)
     const [longUrl, setLongUrl] = useState('')
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
