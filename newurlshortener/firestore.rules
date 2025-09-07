@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // URL shortening rules
+    match /urls/{urlId} {
+      // Allow anyone to read URLs (needed for redirect functionality)
+      allow read: if true;
+      
+      // Allow anyone to create new URLs (for shortening service)
+      allow create: if true 
+        && request.resource.data.keys().hasAll(['value', 'key', 'createdAt'])
+        && request.resource.data.value is string
+        && request.resource.data.key is string
+        && request.resource.data.value.size() > 0
+        && request.resource.data.key.size() > 0;
+      
+      // Prevent updates and deletes by default (URLs should be immutable)
+      // Only allow updates/deletes in admin functions or authenticated admins
+      allow update, delete: if false;
+    }
+    
+    // Contact form submissions rules
+    match /forms/{formId} {6
+      // Allow anyone to create contact form submissions
+      allow create: if true
+        && request.resource.data.keys().hasAll(['name', 'email', 'message', 'createdAt'])
+        && request.resource.data.name is string
+        && request.resource.data.email is string
+        && request.resource.data.message is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.email.size() > 0
+        && request.resource.data.message.size() > 0
+        && request.resource.data.email.matches('.*@.*\\..*'); // Basic email validation
+      
+      // Prevent reading form submissions (privacy)
+      // Only admin should be able to read these
+      allow read: if false;
+      
+      // Prevent updates and deletes (form submissions should be immutable)
+      allow update, delete: if false;
+    }
+    
+    // Admin collection rules (if you add admin functionality later)
+    match /admin/{document=**} {
+      // Restrict all admin operations
+      // You can add authentication rules here when you implement admin auth
+      allow read, write: if false;
+    }
+    
+    // Analytics collection rules (if you add analytics later)
+    match /analytics/{document=**} {
+      // Allow creation of analytics data
+      allow create: if true;
+      
+      // Restrict reading and modification
+      allow read, update, delete: if false;
+    }
+    
+    // Deny access to any other collections by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
