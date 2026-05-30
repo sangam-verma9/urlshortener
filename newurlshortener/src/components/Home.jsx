@@ -2,33 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Copy, Link, CheckCircle, AlertCircle, ExternalLink } from 'lucide-react'
 import { createUrl } from '../config/api'
 
-// Ad Component for reusability
-const GoogleAd = ({ slot, format = "auto", responsive = true, style = {} }) => {
-    useEffect(() => {
-        try {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (e) {
-            console.error('AdSense error:', e);
-        }
-    }, []);
-
-    return (
-        <div className="ad-container" style={{ textAlign: 'center', margin: '20px 0', ...style }}>
-            <ins
-                className="adsbygoogle"
-                style={{
-                    display: 'block',
-                    ...(responsive && { width: '100%' }),
-                }}
-                data-ad-client="ca-pub-8639067847402396"
-                data-ad-slot={slot}
-                data-ad-format={format}
-                data-full-width-responsive="true"
-            ></ins>
-        </div>
-    );
-};
-
 const Home = () => {
     const [longUrl, setLongUrl] = useState('')
     const [shortUrl, setShortUrl] = useState('')
@@ -37,7 +10,7 @@ const Home = () => {
     const [error, setError] = useState('')
     const [copied, setCopied] = useState(false)
 
-    const domain = "https://tsnap.in" || window.location.origin
+    const domain = "👉https://tsnap.in" || window.location.origin
 
     const isValidUrl = (string) => {
         try {
@@ -116,15 +89,6 @@ const Home = () => {
                     </p>
                 </div>
 
-                {/* Ad Position 1: Top Banner - Horizontal Ad */}
-                <div className="mb-6">
-                    <GoogleAd
-                        slot="2719733262"
-                        format="auto"
-                        style={{ minHeight: '100px' }}
-                    />
-                </div>
-
                 {/* Main Card */}
                 <div className="card">
                     {!shortUrl ? (
@@ -167,15 +131,6 @@ const Home = () => {
                                     )}
                                 </button>
                             </form>
-
-                            {/* Ad Position 2: Inside form area - Square Ad (Mobile friendly) */}
-                            <div className="mt-6 mb-4 block md:hidden">
-                                <GoogleAd
-                                    slot="6849731724"
-                                    format="rectangle"
-                                    style={{ minHeight: '250px' }}
-                                />
-                            </div>
 
                             <div className="mt-8 text-center text-sm text-gray-500 font-stretch-50%">
                                 <p>Tsnap provides a fast way to shorten lengthy URLs, simplifying sharing across platforms.</p>
@@ -233,15 +188,6 @@ const Home = () => {
                                     </div>
                                 </div>
 
-                                {/* Ad Position 3: In results - Square Ad between URL display and reset button */}
-                                <div className="py-4">
-                                    <GoogleAd
-                                        slot="6849731724"
-                                        format="rectangle"
-                                        style={{ minHeight: '250px' }}
-                                    />
-                                </div>
-
                                 <div className="flex flex-col sm:flex-row gap-3 pt-4">
                                     <button
                                         onClick={handleReset}
@@ -257,25 +203,6 @@ const Home = () => {
                             </div>
                         </>
                     )}
-                </div>
-
-                {/* Ad Position 4: Bottom Banner - Horizontal Ad */}
-                <div className="mt-8">
-                    <GoogleAd
-                        slot="2719733262"
-                        format="auto"
-                        style={{ minHeight: '100px' }}
-                    />
-                </div>
-
-                {/* Ad Position 5: Sidebar Ad for larger screens */}
-                <div className="hidden lg:block fixed right-4 top-1/2 transform -translate-y-1/2 w-64">
-                    <GoogleAd
-                        slot="6849731724"
-                        format="rectangle"
-                        responsive={false}
-                        style={{ minHeight: '250px', width: '250px' }}
-                    />
                 </div>
             </div>
         </div>
