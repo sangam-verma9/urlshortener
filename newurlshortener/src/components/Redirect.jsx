@@ -5,7 +5,7 @@ import { findUrl } from '../config/api'
 
 const Redirect = () => {
     const { key } = useParams()
-    const [countdown, setCountdown] = useState(5)
+    const [countdown, setCountdown] = useState(3)
     const [longUrl, setLongUrl] = useState('')
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
@@ -57,12 +57,12 @@ const Redirect = () => {
         }
     }
 
-    const handleScrollDown = () => {
-        const element = document.getElementById('url-section')
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' })
-        }
-    }
+    // const handleScrollDown = () => {
+    //     const element = document.getElementById('url-section')
+    //     if (element) {
+    //         element.scrollIntoView({ behavior: 'smooth' })
+    //     }
+    // }
 
     if (loading) {
         return (
@@ -96,18 +96,24 @@ const Redirect = () => {
     }
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen ">
             {/* Timer Section */}
             <div className="min-h-screen flex items-center justify-center px-4">
-                <div className="w-full max-w-md">
-                    <div className="card text-center">
-                        <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <Clock className="w-10 h-10 text-blue-600" />
-                        </div>
+                <div className="w-full max-w-md ">
+                    <div className="card text-center rounded-3xl">
+                        {
+                            !timerComplete && (
+                                <>
+                                    <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <Clock className="w-10 h-10 text-blue-600" />
+                                    </div>
 
-                        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-                            Get Ready!
-                        </h1>
+                                    <h1 className="text-3xl font-bold text-gray-800 mb-4">
+                                        Get Ready!
+                                    </h1>
+                                </>
+                            )
+                        }
 
                         {!timerComplete ? (
                             <>
@@ -127,18 +133,32 @@ const Redirect = () => {
                             </>
                         ) : (
                             <>
-                                <p className="text-gray-600 mb-8">
-                                    Ready to continue to your destination?
-                                </p>
+                                <div className="w-full max-w-2xl">
+                                    <div >
+                                        <div className="text-center mb-8">
+                                            <div className="w-10 h-10 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                                <ExternalLink className="w-5 h-5 text-green-600" />
+                                            </div>
+                                            <h2 className="text-2xl font-bold text-gray-800 mb-2 font-serif">
+                                                Click Below Link
+                                            </h2>
+                                            <p className="text-gray-600 italic">
+                                                Click the button <b>2</b> time to watch your destination
+                                            </p>
+                                        </div>
 
-                                <div className="space-y-4">
-                                    <button
-                                        onClick={handleScrollDown}
-                                        className="btn-secondary w-full flex items-center justify-center space-x-2"
-                                    >
-                                        <ArrowDown className="w-4 h-4" />
-                                        <span>Scroll Down to Get Link</span>
-                                    </button>
+                                        <div className="space-y-6">
+                                            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+                                                <button
+                                                    onClick={handleRedirect}
+                                                    className="btn-primary w-full flex items-center justify-center space-x-2 text-lg"
+                                                >
+                                                    <ExternalLink className="w-5 h-5" />
+                                                    <span className="font-bold font-sans">Watch Now</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </>
                         )}
@@ -147,6 +167,7 @@ const Redirect = () => {
             </div>
 
             {/* URL Section - Shown after timer completes */}
+            {/*
             {timerComplete && (
                 <div id="url-section" className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
                     <div className="w-full max-w-2xl">
@@ -178,6 +199,7 @@ const Redirect = () => {
                     </div>
                 </div>
             )}
+            */}
         </div>
     )
 }
